@@ -1,6 +1,9 @@
 /vendor
 /node_modules
+/build
 .phpunit.result.cache
 .phpunit.cache
 phpstan.neon
 composer.lock
+pnpm-lock.yaml
+.idea
