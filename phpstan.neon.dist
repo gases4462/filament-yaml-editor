@@ -1,0 +1,15 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    paths:
+        - src/
+        - config/
+
+    level: 5
+
+    tmpDir: build/phpstan
+
+    ignoreErrors:
+        - identifier: property.defaultValue
+          path: src/*/

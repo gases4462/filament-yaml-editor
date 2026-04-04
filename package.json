@@ -1,0 +1,25 @@
+{
+    "name": "filament-yaml-editor",
+    "private": true,
+    "scripts": {
+        "build": "node build.mjs",
+        "dev": "node build.mjs --watch"
+    },
+    "dependencies": {
+        "codemirror": "^6.0.1",
+        "@codemirror/lang-yaml": "^6.1.1",
+        "@codemirror/lint": "^6.8.4",
+        "@codemirror/theme-one-dark": "^6.1.2",
+        "@codemirror/view": "^6.36.4",
+        "@codemirror/state": "^6.5.0",
+        "@codemirror/commands": "^6.8.0",
+        "js-yaml": "^4.1.0"
+    },
+    "devDependencies": {
+        "esbuild": "^0.25.0",
+        "postcss": "^8.4.0",
+        "postcss-cli": "^11.0.0",
+        "autoprefixer": "^10.4.0",
+        "cssnano": "^7.0.0"
+    }
+}
